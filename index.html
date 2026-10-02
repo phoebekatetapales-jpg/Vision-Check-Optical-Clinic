@@ -246,6 +246,78 @@
   @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(239,68,68,0); } 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); } }
   .threshold-note { font-size: 12.5px; color: var(--ink-2); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
 
+  /* Appointments */
+  .appt-top { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .appt-day-label { font-weight: 700; font-size: 15px; }
+  .day-strip { display: flex; align-items: center; gap: 6px; min-width: 0; max-width: 100%; }
+  .day-strip > .icon-btn { flex: none; height: 40px; width: 36px; justify-content: center; font-size: 18px; padding: 0; }
+  .days { display: flex; gap: 6px; overflow-x: auto; padding: 2px; min-width: 0; }
+  .day {
+    flex: none; min-width: 82px; display: flex; flex-direction: column; align-items: flex-start; gap: 1px; padding: 7px 12px;
+    border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; text-align: left;
+  }
+  .day:hover { border-color: var(--cyan); }
+  .day[aria-pressed="true"] { background: var(--cyan-soft); border-color: var(--cyan); }
+  .day-wd { font-size: 12px; font-weight: 700; color: var(--ink-2); }
+  .day[aria-pressed="true"] .day-wd { color: var(--cyan); }
+  .day-num { font-size: 14.5px; font-weight: 700; }
+  .day-count { font-size: 11.5px; color: var(--ink-3); }
+  .appt-stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-bottom: 14px; }
+  .appt-stat { background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
+  .appt-stat strong { display: block; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+  .appt-stat span { font-size: 12.5px; color: var(--ink-2); font-weight: 600; }
+  .sched-wrap { overflow: auto; max-height: 560px; border: 1px solid var(--line); border-radius: 12px; }
+  .sched { display: grid; grid-template-columns: 84px repeat(2, minmax(220px,1fr)); min-width: 560px; }
+  .sched > * { border-bottom: 1px solid var(--line); }
+  .sched-head { position: sticky; top: 0; z-index: 1; background: var(--surface-2); padding: 10px 12px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .sched-time { padding: 14px 12px; font-size: 12.5px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+  .sched-lunch {
+    grid-column: 1 / -1; padding: 7px 12px; font-size: 12px; font-weight: 600; color: var(--ink-3); text-align: center;
+    background: repeating-linear-gradient(45deg, var(--surface-2), var(--surface-2) 8px, var(--surface) 8px, var(--surface) 16px);
+  }
+  .cell { padding: 5px 6px; min-height: 50px; display: flex; }
+  .cell > * { flex: 1; min-width: 0; }
+  .slot-free {
+    border: 1px dashed var(--line); background: transparent; color: var(--ink-3); border-radius: 8px;
+    font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer;
+  }
+  .slot-free:hover, .slot-free:focus-visible { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-soft); }
+  .appt-card {
+    text-align: left; border: 1px solid var(--line); border-left: 3px solid var(--st); background: var(--surface-2); color: var(--ink);
+    border-radius: 8px; padding: 6px 10px; font: inherit; cursor: pointer; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 1px 8px; align-items: center;
+  }
+  .appt-card:hover { border-color: var(--st); }
+  .appt-card.st-completed { opacity: .7; }
+  .appt-name { font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .appt-svc { grid-column: 1; font-size: 12px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .appt-pill { grid-row: 1 / span 2; grid-column: 2; font-size: 11.5px; font-weight: 700; color: var(--st); background: color-mix(in srgb, var(--st) 14%, transparent); padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+  .st-booked { --st: var(--cyan); }
+  .st-checkedin { --st: #D97706; }
+  .st-completed { --st: #059669; }
+  .st-noshow { --st: var(--coral); }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { color-scheme: dark; }
+    :root:not([data-theme="light"]) .st-checkedin { --st: #FBBF24; }
+    :root:not([data-theme="light"]) .st-completed { --st: #34D399; }
+  }
+  :root[data-theme="dark"] { color-scheme: dark; }
+  :root[data-theme="dark"] .st-checkedin { --st: #FBBF24; }
+  :root[data-theme="dark"] .st-completed { --st: #34D399; }
+
+  /* Booking form */
+  #bookDialog { width: min(520px, calc(100% - 32px)); }
+  .form-grid { padding: 18px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+  .field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: var(--ink-2); min-width: 0; }
+  .field.full { grid-column: 1 / -1; }
+  .field input, .field select, .field textarea {
+    height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+    font: inherit; font-size: 14px; font-weight: 500; padding: 0 12px; width: 100%;
+  }
+  .field textarea { height: auto; min-height: 64px; padding: 10px 12px; resize: vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(14,165,233,.18); }
+  .form-error { grid-column: 1 / -1; margin: 0; color: var(--coral); font-size: 13px; font-weight: 600; }
+  .form-error:empty { display: none; }
+
   /* Dialog */
   dialog {
     border: 1px solid var(--line); border-radius: 16px; padding: 0; width: min(440px, calc(100% - 32px));
@@ -290,6 +362,8 @@
   }
   @media (max-width: 520px) {
     .kpis { grid-template-columns: minmax(0,1fr); }
+    .appt-stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .form-grid { grid-template-columns: minmax(0,1fr); }
     .spark { width: 40%; }
     .kpi-value { font-size: 26px; }
     .kpi.hero .kpi-value { font-size: 32px; }
@@ -322,6 +396,7 @@
       <div class="nav-group">Analytics</div>
       <div class="nav">
         <a href="#overview" class="active" data-nav><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Overview</a>
+        <a href="#appointments" data-nav><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M9 15l2 2 4-4"/></svg>Appointments<span id="apptBadge" style="margin-left:auto;background:var(--cyan);color:#fff;font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px"></span></a>
         <a href="#trends" data-nav><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>Sales trends</a>
         <a href="#patients" data-nav><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.9 3.1-7 7-7s7 3.1 7 7"/><path d="M17 11a3 3 0 1 0 0-6M22 21c0-3-1.8-5.5-4.5-6.5"/></svg>Patients &amp; Rx</a>
         <a href="#transactions" data-nav><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>Transactions</a>
@@ -374,6 +449,29 @@
           <span class="delta alert" id="kpiCrit">2 critical</span><span class="delta-note">reorder now</span>
         </article>
       </div>
+    </section>
+
+    <section id="appointments" class="panel" style="margin-bottom:20px">
+      <div class="panel-head">
+        <div>
+          <h2 class="panel-title">Appointments</h2>
+          <p class="panel-note">Mon–Sat, 9:00 AM – 5:00 PM · 30-minute slots · closed 12–1 PM for lunch</p>
+        </div>
+        <button class="chip-btn primary" id="newBookingBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          New booking
+        </button>
+      </div>
+      <div class="appt-top">
+        <div class="day-strip">
+          <button class="icon-btn" id="weekPrev" aria-label="Previous week">‹</button>
+          <div class="days" id="days"></div>
+          <button class="icon-btn" id="weekNext" aria-label="Next week">›</button>
+        </div>
+        <div class="appt-day-label" id="apptDayLabel"></div>
+      </div>
+      <div class="appt-stats" id="apptStats"></div>
+      <div class="sched-wrap"><div class="sched" id="sched"></div></div>
     </section>
 
     <section id="trends" class="grid-a">
@@ -482,6 +580,29 @@
   </div>
   <dl class="dlg-body" id="dlgBody"></dl>
   <div class="dlg-foot" id="dlgFoot"></div>
+</dialog>
+
+<dialog id="bookDialog" aria-labelledby="bookTitle">
+  <form id="bookForm" novalidate>
+    <div class="dlg-head">
+      <strong id="bookTitle" style="font-size:16px">New booking</strong>
+      <button type="button" class="icon-btn" data-close-book aria-label="Close">✕</button>
+    </div>
+    <div class="form-grid">
+      <label class="field full">Patient name<input name="patient" autocomplete="off" placeholder="e.g. Maria Santos"></label>
+      <label class="field">Mobile number<input name="phone" type="tel" inputmode="tel" placeholder="0917 123 4567"></label>
+      <label class="field">Service<select name="service"></select></label>
+      <label class="field full">Optometrist<select name="doctor"></select></label>
+      <label class="field">Date<input name="date" type="date"></label>
+      <label class="field">Time<select name="time"></select></label>
+      <label class="field full">Notes <span style="font-weight:500;color:var(--ink-3)">(optional)</span><textarea name="notes" placeholder="Reason for visit, current Rx, etc."></textarea></label>
+      <p class="form-error" id="bookError" role="alert"></p>
+    </div>
+    <div class="dlg-foot">
+      <button type="button" class="icon-btn" data-close-book>Cancel</button>
+      <button type="submit" class="icon-btn go">Confirm booking</button>
+    </div>
+  </form>
 </dialog>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -803,13 +924,169 @@ function renderInventory() {
   });
 }
 
+/* ---------- Appointments ---------- */
+const DOCTORS = ['Dr. Aris Thorne', 'Dr. Elena Rostova'];
+const SERVICES = ['Comprehensive eye exam', 'Contact lens fitting', 'Glaucoma screening', 'Frame fitting & pickup', 'Follow-up visit'];
+const SLOTS = [];
+for (let m = 9 * 60; m < 17 * 60; m += 30) if (m < 12 * 60 || m >= 13 * 60) SLOTS.push(String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'));
+const APPT_STATUS = { booked: 'Booked', checkedin: 'Checked in', completed: 'Completed', noshow: 'No-show', cancelled: 'Cancelled' };
+
+const pad = n => String(n).padStart(2, '0');
+const isoDate = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+const parseIso = s => new Date(s + 'T00:00:00');
+const addDays = (s, n) => { const d = parseIso(s); d.setDate(d.getDate() + n); return isoDate(d); };
+const todayIso = () => isoDate(new Date());
+const isSunday = s => parseIso(s).getDay() === 0;
+const nextOpenDay = s => { while (isSunday(s)) s = addDays(s, 1); return s; };
+const weekStart = s => addDays(s, -((parseIso(s).getDay() + 6) % 7));
+const fmtTime = t => { const [h, m] = t.split(':').map(Number); return (h % 12 || 12) + ':' + pad(m) + (h < 12 ? ' AM' : ' PM'); };
+const fmtLongDate = s => parseIso(s).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+const isPast = (date, time) => new Date(date + 'T' + time + ':00') < new Date();
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+function seedAppointments() {
+  const d0 = nextOpenDay(todayIso()), d1 = nextOpenDay(addDays(d0, 1)), d2 = nextOpenDay(addDays(d1, 1));
+  return [
+    [d0, '09:00', 0, 'Sarah Jenkins', '0917 555 0142', 4],
+    [d0, '10:30', 1, 'Michael Chen', '0918 555 0187', 1],
+    [d0, '14:00', 0, 'Emily Rodriguez', '0927 555 0115', 0],
+    [d0, '15:30', 1, 'Robert Wilson', '0905 555 0163', 3],
+    [d1, '09:30', 1, 'Jessica Taylor', '0919 555 0128', 0],
+    [d1, '11:00', 0, 'James Anderson', '0915 555 0174', 2],
+    [d2, '13:30', 0, 'Olivia Martin', '0926 555 0139', 0]
+  ].map((r, i) => ({ id: 'APT' + (2001 + i), date: r[0], time: r[1], doctor: DOCTORS[r[2]], patient: r[3], phone: r[4], service: SERVICES[r[5]], notes: '', status: 'booked' }));
+}
+
+let APPTS = null;
+try { APPTS = JSON.parse(localStorage.getItem('vc-appts')); } catch (e) {}
+const saveAppts = () => { try { localStorage.setItem('vc-appts', JSON.stringify(APPTS)); } catch (e) {} };
+if (!Array.isArray(APPTS)) { APPTS = seedAppointments(); saveAppts(); }
+
+let apptDay = nextOpenDay(todayIso());
+const isActive = a => a.status !== 'cancelled';
+const apptAt = (date, time, doctor) => APPTS.find(a => isActive(a) && a.date === date && a.time === time && a.doctor === doctor);
+
+function renderAppointments() {
+  const today = todayIso();
+  const days = [0, 1, 2, 3, 4, 5].map(i => addDays(weekStart(apptDay), i));
+  $('#days').innerHTML = days.map(d => {
+    const dt = parseIso(d), n = APPTS.filter(a => isActive(a) && a.date === d).length;
+    return `<button class="day" aria-pressed="${d === apptDay}" data-day="${d}">
+      <span class="day-wd">${d === today ? 'Today' : dt.toLocaleDateString('en-US', { weekday: 'short' })}</span>
+      <span class="day-num">${dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+      <span class="day-count">${n ? n + ' booked' : 'No bookings'}</span></button>`;
+  }).join('');
+  $('#days').querySelectorAll('[data-day]').forEach(b => b.onclick = () => { apptDay = b.dataset.day; renderAppointments(); });
+  $('#apptDayLabel').textContent = fmtLongDate(apptDay);
+
+  const dayAppts = APPTS.filter(a => isActive(a) && a.date === apptDay);
+  const open = SLOTS.reduce((s, t) => s + DOCTORS.filter(doc => !apptAt(apptDay, t, doc) && !isPast(apptDay, t)).length, 0);
+  $('#apptStats').innerHTML = [['Booked', dayAppts.length], ['Checked in', dayAppts.filter(a => a.status === 'checkedin').length],
+    ['Completed', dayAppts.filter(a => a.status === 'completed').length], ['Open slots', open]]
+    .map(([k, v]) => `<div class="appt-stat"><strong>${v}</strong><span>${k}</span></div>`).join('');
+
+  let html = '<div class="sched-head">Time</div>' + DOCTORS.map(doc =>
+    `<div class="sched-head">${doc}<span class="muted small">${dayAppts.filter(a => a.doctor === doc).length} booked</span></div>`).join('');
+  SLOTS.forEach(t => {
+    if (t === '13:00') html += '<div class="sched-lunch">Lunch break · 12:00 – 1:00 PM</div>';
+    html += `<div class="sched-time">${fmtTime(t)}</div>`;
+    DOCTORS.forEach((doc, di) => {
+      const a = apptAt(apptDay, t, doc);
+      html += '<div class="cell">' + (a
+        ? `<button class="appt-card st-${a.status}" data-appt="${a.id}"><span class="appt-name">${esc(a.patient)}</span><span class="appt-svc">${esc(a.service)}</span><span class="appt-pill">${APPT_STATUS[a.status]}</span></button>`
+        : isPast(apptDay, t) ? '<span></span>'
+        : `<button class="slot-free" data-slot="${t}" data-doc="${di}" aria-label="Book ${fmtTime(t)} with ${doc}">+ Book</button>`) + '</div>';
+    });
+  });
+  $('#sched').innerHTML = html;
+  $('#sched').querySelectorAll('[data-appt]').forEach(b => b.onclick = () => openAppt(b.dataset.appt));
+  $('#sched').querySelectorAll('[data-slot]').forEach(b => b.onclick = () => openBooking({ date: apptDay, time: b.dataset.slot, doctor: DOCTORS[b.dataset.doc] }));
+
+  const upcoming = APPTS.filter(a => a.date === today && (a.status === 'booked' || a.status === 'checkedin')).length;
+  $('#apptBadge').textContent = upcoming || '';
+  $('#apptBadge').style.display = upcoming ? '' : 'none';
+}
+$('#weekPrev').onclick = () => { apptDay = addDays(apptDay, -7); renderAppointments(); };
+$('#weekNext').onclick = () => { apptDay = addDays(apptDay, 7); renderAppointments(); };
+
+function openAppt(id) {
+  const a = APPTS.find(x => x.id === id);
+  $('#dlgTitle').textContent = a.id;
+  const rows = [['Date', fmtLongDate(a.date)], ['Time', fmtTime(a.time)], ['Patient', esc(a.patient)], ['Mobile', esc(a.phone)],
+    ['Service', esc(a.service)], ['Optometrist', a.doctor]];
+  if (a.notes) rows.push(['Notes', esc(a.notes)]);
+  rows.push(['Status', `<span class="appt-pill st-${a.status}">${APPT_STATUS[a.status]}</span>`]);
+  $('#dlgBody').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+  const acts = { booked: [['checkedin', 'Check in', 'go'], ['noshow', 'No-show', ''], ['cancelled', 'Cancel booking', '']],
+    checkedin: [['completed', 'Mark completed', 'go']] }[a.status] || [];
+  $('#dlgFoot').innerHTML = acts.map(([s, l, c]) => `<button class="icon-btn ${c}" data-set="${s}">${l}</button>`).join('') + '<button class="icon-btn" id="dlgDone">Close</button>';
+  $('#dlgDone').onclick = () => $('#txDialog').close();
+  const msg = { checkedin: 'checked in', completed: 'visit completed', noshow: 'marked as no-show', cancelled: 'booking cancelled' };
+  $('#dlgFoot').querySelectorAll('[data-set]').forEach(b => b.onclick = () => {
+    const s = b.dataset.set;
+    if (s === 'cancelled' && !confirm(`Cancel ${a.patient}'s booking on ${fmtDate(a.date)} at ${fmtTime(a.time)}? The slot will open up again.`)) return;
+    a.status = s; saveAppts(); renderAppointments();
+    $('#txDialog').close(); toast(`${esc(a.patient)} · ${msg[s]}`);
+  });
+  $('#txDialog').showModal();
+}
+
+const BF = n => $('#bookForm').elements[n];
+BF('service').innerHTML = SERVICES.map(s => `<option>${esc(s)}</option>`).join('');
+BF('doctor').innerHTML = DOCTORS.map(d => `<option>${d}</option>`).join('');
+
+function fillTimes(keep) {
+  const date = BF('date').value, doc = BF('doctor').value;
+  const opts = date && !isSunday(date) ? SLOTS.filter(t => !apptAt(date, t, doc) && !isPast(date, t)) : [];
+  BF('time').innerHTML = opts.length ? opts.map(t => `<option value="${t}">${fmtTime(t)}</option>`).join('')
+    : `<option value="">${date && isSunday(date) ? 'Closed on Sundays' : 'No open slots'}</option>`;
+  if (keep && opts.includes(keep)) BF('time').value = keep;
+}
+
+function openBooking(pre = {}) {
+  const today = todayIso();
+  $('#bookForm').reset(); $('#bookError').textContent = '';
+  BF('date').min = today;
+  BF('date').value = pre.date || (apptDay >= today ? apptDay : nextOpenDay(today));
+  if (pre.doctor) BF('doctor').value = pre.doctor;
+  fillTimes(pre.time);
+  $('#bookDialog').showModal();
+  BF('patient').focus();
+}
+$('#newBookingBtn').onclick = () => openBooking();
+BF('date').addEventListener('change', () => fillTimes(BF('time').value));
+BF('doctor').addEventListener('change', () => fillTimes(BF('time').value));
+document.querySelectorAll('[data-close-book]').forEach(b => b.onclick = () => $('#bookDialog').close());
+$('#bookDialog').addEventListener('click', e => { if (e.target === $('#bookDialog')) $('#bookDialog').close(); });
+
+$('#bookForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = n => BF(n).value.trim();
+  const patient = v('patient').replace(/\s+/g, ' '), phone = v('phone'), date = v('date'), time = v('time'), doctor = v('doctor');
+  let err = '';
+  if (patient.length < 2) err = 'Enter the patient’s full name.';
+  else if (!/^(09|\+639)\d{9}$/.test(phone.replace(/[\s-]/g, ''))) err = 'Enter a valid PH mobile number, e.g. 0917 123 4567.';
+  else if (!date || date < todayIso()) err = 'Pick today or a future date.';
+  else if (isSunday(date)) err = 'The clinic is closed on Sundays. Pick another day.';
+  else if (!time) err = `${doctor} has no open slots that day. Try another date or optometrist.`;
+  else if (apptAt(date, time, doctor) || isPast(date, time)) { err = 'That slot is no longer available. Pick another time.'; fillTimes(); }
+  if (err) { $('#bookError').textContent = err; return; }
+  const n = APPTS.reduce((m, a) => Math.max(m, +a.id.slice(3) || 0), 2000) + 1;
+  APPTS.push({ id: 'APT' + n, date, time, doctor, patient, phone, service: v('service'), notes: v('notes'), status: 'booked' });
+  saveAppts();
+  apptDay = date; renderAppointments();
+  $('#bookDialog').close();
+  toast(`Booked ${esc(patient)} · ${fmtDate(date)}, ${fmtTime(time)}`);
+});
+setInterval(renderAppointments, 60000);
+
 /* ---------- Shell: nav, theme ---------- */
 const sidebar = $('#sidebar'), scrim = $('#scrim');
 $('#menuBtn').onclick = () => { sidebar.classList.add('open'); scrim.classList.add('show'); };
 scrim.onclick = () => { sidebar.classList.remove('open'); scrim.classList.remove('show'); };
 document.querySelectorAll('[data-nav]').forEach(a => a.addEventListener('click', () => { sidebar.classList.remove('open'); scrim.classList.remove('show'); }));
 
-const sections = ['overview', 'trends', 'patients', 'transactions', 'inventory'].map(id => document.getElementById(id));
+const sections = ['overview', 'appointments', 'trends', 'patients', 'transactions', 'inventory'].map(id => document.getElementById(id));
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) {
     document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
@@ -830,7 +1107,7 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () 
 
 /* ---------- Init ---------- */
 applyStoredTheme();
-renderTabs(); renderTable(); renderInventory();
+renderTabs(); renderTable(); renderInventory(); renderAppointments();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(buildCharts); else buildCharts();
 </script>
 </body>
