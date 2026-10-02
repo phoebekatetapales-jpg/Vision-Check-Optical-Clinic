@@ -354,7 +354,7 @@
       <div class="kpis">
         <article class="panel kpi hero">
           <div class="kpi-label">Monthly revenue</div>
-          <div class="kpi-value" id="kpiRevenue">$44,800</div>
+          <div class="kpi-value" id="kpiRevenue">₱44,800</div>
           <span class="delta up" id="kpiRevenueDelta">▲ 8.7%</span><span class="delta-note">vs last month</span>
           <div class="spark"><canvas id="sparkRevenue" aria-label="Revenue trend May to September"></canvas></div>
         </article>
@@ -365,7 +365,7 @@
         </article>
         <article class="panel kpi">
           <div class="kpi-label"><span class="kpi-icon" style="background:var(--emerald-soft);color:var(--emerald)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="14" r="4"/><circle cx="18" cy="14" r="4"/><path d="M10 14h4M2 14V9l2-3M22 14V9l-2-3"/></svg></span>Avg. frame &amp; lens ticket</div>
-          <div class="kpi-value">$365.20</div>
+          <div class="kpi-value">₱365.20</div>
           <span class="delta up">▲ 2.1%</span><span class="delta-note">premium frames</span>
         </article>
         <article class="panel kpi alert-card">
@@ -540,7 +540,7 @@ const RX_DIST = {
 
 /* ---------- Helpers ---------- */
 const $ = s => document.querySelector(s);
-const fmt$ = (n, d = 0) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+const fmt$ = (n, d = 0) => '₱' + n.toLocaleString('en-PH', { minimumFractionDigits: d, maximumFractionDigits: d });
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const isDark = () => {
   const t = document.documentElement.getAttribute('data-theme');
@@ -643,7 +643,7 @@ function buildCharts() {
       scales: {
         x: axis({ grid: { display: false } }),
         y: axis({ position: 'left', beginAtZero: true, title: { display: true, text: 'Units', color: css('--ink-3'), font: { size: 12 } } }),
-        y1: axis({ position: 'right', beginAtZero: false, suggestedMin: 25000, grid: { display: false }, ticks: { ...axis().ticks, callback: v => '$' + (v / 1000) + 'k' } })
+        y1: axis({ position: 'right', beginAtZero: false, suggestedMin: 25000, grid: { display: false }, ticks: { ...axis().ticks, callback: v => '₱' + (v / 1000) + 'k' } })
       }
     }
   });
